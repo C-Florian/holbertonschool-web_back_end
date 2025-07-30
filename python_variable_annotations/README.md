@@ -1,4 +1,1 @@
-# Python Variable Annotations
-
-This is the initial README file for the project.
-
+# holbertonschool-web_front_end
