@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """Measure average runtime per coroutine for wait_n."""
 
-from __future__ import annotations
-
 import time
 import asyncio
 
