@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """Basic async syntax: wait for a random delay and return it."""
 
-from __future__ import annotations
-
 import asyncio
 import random
 
@@ -17,7 +15,6 @@ async def wait_random(max_delay: int = 10) -> float:
     Returns:
         The actual delay time (float) that was awaited.
     """
-    # random.uniform is inclusive on both ends
-    delay: Final[float] = random.uniform(0, max_delay)
+    delay = random.uniform(0, max_delay)
     await asyncio.sleep(delay)
     return delay
