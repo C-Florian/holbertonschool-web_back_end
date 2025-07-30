@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""Run multiple tasks created with task_wait_random and collect their delays."""
-
-from __future__ import annotations
+"""Run multiple tasks using task_wait_random and collect their delays."""
 
 import asyncio
 from typing import List
@@ -23,9 +21,6 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
     tasks = [task_wait_random(max_delay) for _ in range(n)]
     delays: List[float] = []
-
     for completed in asyncio.as_completed(tasks):
-        delay = await completed
-        delays.append(delay)
-
+        delays.append(await completed)
     return delays
