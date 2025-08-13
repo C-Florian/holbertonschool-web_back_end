@@ -7,6 +7,7 @@ calculates the start and end indices for pagination.
 
 from typing import Tuple
 
+
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """Calculate start and end index for pagination.
 
@@ -23,4 +24,3 @@ def index_range(page: int, page_size: int) -> Tuple[int, int]:
     start_index: int = (page - 1) * page_size
     end_index: int = start_index + page_size
     return start_index, end_index
-
