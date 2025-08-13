@@ -32,7 +32,7 @@ class Server:
         """
         if self.__indexed_dataset is None:
             dataset = self.dataset()
-            truncated_dataset = dataset[:1000]  # ✅ respecter la troncature
+            truncated_dataset = dataset[:1000]  #  respecter la troncature
             self.__indexed_dataset = {
                 i: truncated_dataset[i] for i in range(len(truncated_dataset))
             }
@@ -49,20 +49,20 @@ class Server:
             "data": list of rows
           }
         """
-        # ✅ signature exacte exigée par le checker (index: int = None)
+        #  signature exacte exigée par le checker (index: int = None)
         assert isinstance(page_size, int) and page_size > 0
         if index is None:
             index = 0
         assert isinstance(index, int) and index >= 0
 
         idx_map = self.indexed_dataset()
-        # ✅ borne de validité basée sur la vue indexée (0..len(idx_map)-1)
+        #  borne de validité basée sur la vue indexée (0..len(idx_map)-1)
         assert index < len(idx_map)
 
         data: List[List] = []
         cursor = index
 
-        # ✅ collecter jusqu'à page_size éléments existants,
+        # collecter jusqu'à page_size éléments existants,
         # en sautant les clés absentes si des suppressions surviennent
         while len(data) < page_size and cursor < len(idx_map) or len(data) < page_size:
             if cursor in idx_map:
