@@ -1,8 +1,8 @@
 // full_server/controllers/StudentsController.js
-import readDatabase from '../utils.js';
+import readDatabase from '../utils';
 
 function getDBFileFromArgv() {
-  return process.argv[2]; // chemin CSV passé à l’exécution
+  return process.argv[2]; // CSV path passed at runtime
 }
 
 class StudentsController {
@@ -10,9 +10,9 @@ class StudentsController {
     const dbPath = getDBFileFromArgv();
     try {
       const fields = await readDatabase(dbPath);
-      const fieldNames = Object.keys(fields).sort((a, b) =>
-        a.localeCompare(b, 'en', { sensitivity: 'base' })
-      );
+
+      // Sort fields alphabetically, case-insensitive
+      const fieldNames = Object.keys(fields).sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }));
 
       const lines = ['This is the list of our students'];
       for (const field of fieldNames) {
@@ -20,7 +20,8 @@ class StudentsController {
         lines.push(`Number of students in ${field}: ${list.length}. List: ${list.join(', ')}`);
       }
       res.status(200).send(lines.join('\n'));
-    } catch {
+    } catch (err) {
+      console.error('Error loading database:', err);
       res.status(500).send('Cannot load the database');
     }
   }
@@ -36,7 +37,8 @@ class StudentsController {
       const fields = await readDatabase(dbPath);
       const list = fields[major] || [];
       res.status(200).send(`List: ${list.join(', ')}`);
-    } catch {
+    } catch (err) {
+      console.error('Error loading database:', err);
       res.status(500).send('Cannot load the database');
     }
   }
